@@ -8,8 +8,8 @@ Le workflow exécute `script.py` à chaque `git push`, génère :
 - `metrics.txt`
 - `conf_matrix.png`
 
-![](img/1.png)
-![](img/2.png)
+![](imgs/1.png)
+![](imgs/2.png)
 
 
 Puis publie un **rapport Markdown** en commentaire grâce à **CML**.
