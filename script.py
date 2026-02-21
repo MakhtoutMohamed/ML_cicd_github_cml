@@ -52,13 +52,13 @@ TRAIN_PATH = os.path.join(os.getcwd(), "dataset.csv")
 df = pd.read_csv(TRAIN_PATH)
 
 # Drop first 3 features
-df.drop(columns=["RowNumber", "CustomerId", "Surname"], axis=1, inplace=True)
+df.drop(columns=["RowNumber", "CustomerId", "Surname"], inplace=True)
 
 # Filter using Age threshold
 df.drop(index=df[df["Age"] > 80].index.tolist(), axis=0, inplace=True)
 
 # Features / target
-X = df.drop(columns=["Exited"], axis=1)
+X = df.drop(columns=["Exited"])
 y = df["Exited"]
 
 # Split train/test
