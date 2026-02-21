@@ -1,0 +1,49 @@
+name: churn-imbalanced-dataset
+
+on: [push]
+
+# Autorise CML à publier un commentaire via ${{ secrets.GITHUB_TOKEN }}
+permissions: write-all
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # (optionnel) Node, utile si vous utilisez setup-cml@v1 ; avec setup-cml@v2 ce n'est plus obligatoire.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # setup-cml v2 installe CML depuis des binaires (plus simple/robuste)
+      - name: Setup CML
+        uses: iterative/setup-cml@v2
+        with:
+          vega: false
+
+      - name: Train model & produce metrics
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python script.py
+
+      - name: Generate Report (CML)
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "## Metrics" > report.md
+          awk 'NR%4{print "    " $0}{print ""}' metrics.txt >> report.md
+
+          echo "## Confusion Matrix" >> report.md
+          echo "![](./conf_matrix.png)" >> report.md
+
+          cml comment create report.md
