@@ -1,4 +1,4 @@
-# Atelier 3 — CI/CD pour le Machine Learning (GitHub Actions + CML)
+# Atelier 3 - CI/CD pour le Machine Learning (GitHub Actions + CML)
 
 Ce dépôt met en place une **boucle MLOps simple** :
 
@@ -7,6 +7,10 @@ Ce dépôt met en place une **boucle MLOps simple** :
 Le workflow exécute `script.py` à chaque `git push`, génère :
 - `metrics.txt`
 - `conf_matrix.png`
+
+![](img/1.png)
+![](img/2.png)
+
 
 Puis publie un **rapport Markdown** en commentaire grâce à **CML**.
 
@@ -26,7 +30,7 @@ churn-cml/
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 pip install -r requirements.txt
 python script.py
 ```
@@ -52,10 +56,6 @@ Le pipeline est dans : `.github/workflows/cml-churn.yaml`
 
 ## Résultat attendu
 
-Après un `push`, dans l’onglet Actions / Commit (ou PR si vous travaillez via PR) :
+Après un `push`, dans l'onglet Actions / Commit (ou PR si vous travaillez via PR) :
 - un commentaire contenant les métriques,
-- l’image `conf_matrix.png` affichée dans le commentaire.
-
----
-
-📄 Sujet de l’atelier : voir `Atelier 3.pdf`.
+- l'image `conf_matrix.png` affichée dans le commentaire.
